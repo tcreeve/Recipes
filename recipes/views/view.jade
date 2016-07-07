@@ -1,0 +1,23 @@
+extends layout.jade
+
+block title
+	title View Recipes
+	
+block script
+	script(src="/public/jquery-3.0.0.min.js")
+	script(src="/public/view.js")
+	
+block addtostyle
+	include css/seerecipe.css
+
+block content
+	h1 View Recipes
+	if recipes
+		each item in recipes
+			a(href='recipe/#{item.idrecipe}') #{item.name}
+			br
+	else
+		p We're sorry. We don't have any recipes right now. :(
+		br
+	br
+	input(type="button", value="Add New Recipe", id="addrecipe")

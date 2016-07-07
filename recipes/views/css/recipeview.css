@@ -1,0 +1,24 @@
+#recipename{
+	position: absolute;
+	left: 30px;
+	width: 50%;
+	float: left; 
+	min-width: 300px;
+	min-height: 200px;
+}
+#ingredientlist{
+	position: relative;
+	top: 140px;
+	left: 10px;
+	width: 50%;
+	float: left;
+	min-width: 300px;
+}
+#recipeinstructions{
+	position: relative;
+	margin-left: 50%;
+	margin-top: 0%;
+	width: 49%;
+	min-height: 500px;
+	min-width: 1000px;
+}

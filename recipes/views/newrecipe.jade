@@ -1,0 +1,22 @@
+extends layout.jade
+
+block title
+	title Add Recipes
+	
+block script
+	script(src="/public/jquery-3.0.0.min.js")
+	script(src="/public/newrecipe.js")
+
+block content
+	form(method='post')
+		div(id='namefield')
+			input(type='text', name='name', placeholder='Name')
+		div(id='ingredientfield')
+			div(id='toduplicate')
+				input(type="number", name="amount", placeholder="Amount", maxlength="3")
+				input(type="text", name="unit", placeholder="Unit (can leave blank)", maxlength="10")
+				input(type="text", name="ingredient", placeholder="Ingredient", maxlength="30")
+		input(type="button", value="Add Another Ingredient", id="moreing")
+		div(id='instructionsfield')
+			textarea(rows='15', cols='100', name='instructions', placeholder='Instructions Here')
+		input(type="submit", value="Submit Recipe")

@@ -1,0 +1,77 @@
+extends layout.jade
+
+block title
+	title #{info[0].name}
+	
+block script
+	script(src="/public/jquery-3.0.0.min.js")
+	script(src="/public/recipejquery.js")
+	
+block addtostyle
+	include css/recipeview.css
+
+block content
+	div(id="alertmsg")
+		if msg
+			div(id="alarm")
+				| #{msg}
+				input(type="button", id="closeAlarm", value="Close")
+	div(id="recipename")
+		if info
+			h1 
+				| #{info[0].name} <input type="button" id="editname" value="Edit" />
+				form(method="post", id="editnameform", class="hide")
+					input(type="hidden", name="recipe", value="#{info[0].idrecipe}")
+					input(type="hidden", name="todo", value="editname")
+					input(type="text", name="name", placeholder="Name")
+					br
+					input(type="submit", value="Edit")
+					input(type="button", value="Hide", id="editnamehide")
+		else
+			h1 Unnamed
+	div(id="ingredientlist")
+		ul
+			each item in ingredients
+				li
+					| <input type="button" name="#{item.ingredient}" class="edit" value="Edit" /> 
+					| <input type="button" name="#{item.ingredient}" class="delete" value="Delete" />
+					| #{item.amount} #{item.unit} #{item.ingredient}
+					form(method="post", action="/recipe/#{info[0].idrecipe}", id="#{item.ingredient}" class="hide")
+						input(type="hidden", name="recipe", value="#{info[0].idrecipe}")
+						input(type="hidden", name="todo", value="editing")
+						input(type="hidden", name="ingredient", value="#{item.ingredient}")
+						input(type="number", name="amount", placeholder="Amount", maxlength="3", tabindex="1")
+						input(type="text", name="unit", placeholder="Unit (can leave blank)", maxlength="10", tabindex="2")
+						br
+						input(type="submit", value="Edit", tabindex="4")
+						input(type="button", value="Hide", tabindex="4", name="hideEdit", class="#{item.ingredient}")
+			form(method="post", action="/recipe/#{info[0].idrecipe}", id="addingredient" class="hide")
+				input(type="hidden", name="recipe", value="#{info[0].idrecipe}")
+				input(type="hidden", name="todo", value="newing")
+				input(type="number", name="amount", placeholder="Amount", maxlength="3", tabindex="1")
+				input(type="text", name="unit", placeholder="Unit (can leave blank)", maxlength="10", tabindex="2")
+				input(type="text", name="ingredient", placeholder="Ingredient", maxlength="30", tabindex="3")
+				br
+				input(type="submit", value="Add", tabindex="4", id="submitButton")
+				input(type="button", value="Hide", tabindex="4", id="hideAdd")
+			div(id="addingredientshow")
+				input(type="button", value="Add Ingredient", tabindex="1", id="addToRecipe")
+
+	div(id="recipeinstructions")
+		h2 Directions
+		if info
+			p(id="currinstruc")
+				| #{info[0].instructions}
+				br
+				input(type="button", id="editinstruc", value="Edit")
+			form(method="post", id="editinstrucform", class="hide")
+				input(type="hidden", name="recipe", value="#{info[0].idrecipe}")
+				input(type="hidden", name="todo", value="editinstruc")
+				| <textarea rows="15" cols="50" name="instructions">#{info[0].instructions}</textarea>
+				br
+				input(type="submit", value="Edit")
+				input(type="button", value="Hide", id="editinstruchide")
+		else
+			p Instructions unavailable
+		
+	input(type="hidden", id="recipe", value="#{info[0].idrecipe}")

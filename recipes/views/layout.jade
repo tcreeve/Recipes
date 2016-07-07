@@ -1,0 +1,18 @@
+doctype html
+html
+	head
+		block style
+			style
+				include css/default1.css
+				block addtostyle
+		block script
+		block title
+			title DAD
+	body
+		div(id='wrapper')
+			div(id='header')
+				block header
+					include header.jade
+			div(id='content')
+				block content
+		
